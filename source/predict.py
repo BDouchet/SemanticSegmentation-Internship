@@ -56,6 +56,7 @@ def comparaison_one(file):
   filegt = dir_masks + file
   img = cv2.resize(cv2.imread(filename), (width, height))
   groundtruth = cv2.resize(cv2.imread(filegt), (width, height), interpolation=cv2.INTER_NEAREST)[:, :, 2]
+  
   img_to_pred=np.array([img]) / 255
   start=time.time()
   prediction = load.predict(img_to_pred)
@@ -63,10 +64,14 @@ def comparaison_one(file):
   prediction = max_transfo(prediction[0])
   img_prediction = np.copy(img)
   img_gt = np.copy(img)
+   
+  #display of the legend     
   legend = np.zeros((height, 200, 3), dtype='uint8')
   for i in range(nbr_mask):
     cv2.rectangle(legend, (0, (i * 45)), (200, (i * 45) + 45), tuple(code_couleur_BGR[i]), -1)
     cv2.putText(legend, labels[i], (0, (i * 45) + 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+          
+          
   filter = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   for m in filter:
     mask = prediction[:, :, m]
