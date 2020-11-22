@@ -51,9 +51,9 @@ def generator_shuffle():
             batch_keys=keys[i*batch_size:(i+1)*batch_size]
             x_yield=[]
             y_yield=[]
-            for i in batch_keys:
-                x_yield.append((dataset['x_train'])[i])
-                y_yield.append((dataset['y_train'])[i])
+            for j in batch_keys:
+                x_yield.append((dataset['x_train'])[j])
+                y_yield.append((dataset['y_train'])[j])
             yield np.array(x_yield), np.array(y_yield)
 
 def DiceLoss(y_true, y_pred):
